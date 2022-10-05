@@ -92,5 +92,22 @@ for i in range(1, 12):
     epo = -4 * i + 54
     model.fit(X_train, y_train, validation_data=(X_test, y_test), verbose=2, epochs=epo, callbacks=[AdamLearningRateTracker()])
 
-
 model.save_weights('ML_LSTM_2D_Matrix_Eig_5_polygon_mathematica_filled_unormalized_no_reflection_spacing_weights_jaccard_full_permutation_leaky_relu_10_latent_kernel_3_3_3.h5')   # Save the weights
+
+'''
+    Test the model
+'''
+
+f = h5py.File('2D_Matrix_Eig_5_polygon_Mathematica_no_reflection_filled_12.h5', 'r')
+EigValue = f['EigValue'][()]
+EigValue = np.transpose(EigValue)
+EigValue = np.expand_dims(EigValue, -1)
+Diff = 300 * np.concatenate(
+    (np.reshape(EigValue[:, 0:1, :], (100000, 1, 1)), EigValue[:, 1:, :] - EigValue[:, 0:-1, :]), axis=1)
+EigValue = Diff
+
+prediction = model.predict(EigValue)
+hf = h5py.File('ML_LSTM_2D_Matrix_Eig_5_polygon_mathematica_filled_unormalized_no_reflection_spacing_weights_jaccard_full_permutation_leaky_relu_10_latent_kernel_3_3_3_prediction.h5', 'w')
+hf.create_dataset('prediction', data=prediction)
+
+hf.close()
