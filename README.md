@@ -1,6 +1,6 @@
 
 # hearing-shape-of-a-drum
-This repository gives the core codes for the paper: 
+This repository gives the core codes for the paper: https://arxiv.org/abs/2203.08073.
 ## Constructing the environment
 
 ## Data generation
