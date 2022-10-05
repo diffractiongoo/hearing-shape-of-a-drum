@@ -27,7 +27,8 @@ while generation
         elseif i == N   % If generating the last polar angle
 
             if Angle(i-1) + spacing < pi
-                MAX = min([(2-spacing)*pi-pi, Angle(i-1)]);   % The min function puts the origin inside the polygon.
+                MAX = min([(2-spacing)*pi-pi, Angle(i-1)]);   % The min function puts the origin inside the polygon. Note:it sould really be [2*pi-spacing-pi, Angle(i-1)]),
+                                                              % however this doesn't affect the final results.
                 Angle(i) = pi + min([MAX, pi])*rand;
             else
                 Angle(i) = (Angle(i-1)+spacing) + min([(2*pi-(N+1-i)*spacing)-Angle(i-1)-spacing, pi-spacing])*rand;   % The min function ensures the polar angle spacing and puts the origin inside the polygon.
