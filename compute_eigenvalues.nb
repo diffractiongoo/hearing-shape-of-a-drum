@@ -1,0 +1,175 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6124,        165]
+NotebookOptionsPosition[      5770,        151]
+NotebookOutlinePosition[      6170,        167]
+CellTagsIndexPosition[      6127,        164]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{"LaunchKernels", "[", "16", "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"j", "=", "1"}], ",", 
+    RowBox[{"j", "<=", "12"}], ",", 
+    RowBox[{"j", "++"}], ",", 
+    RowBox[{
+     RowBox[{"Vertices", "=", 
+      RowBox[{"Import", "[", 
+       RowBox[{
+        RowBox[{
+        "\"\<2D_Matrix_Eig_5_polygon_Mathematica_no_reflection_\>\"", "<>", 
+         RowBox[{"ToString", "[", "j", "]"}], "<>", "\"\<.h5\>\""}], ",", 
+        "\"\</Vertices\>\""}], "]"}]}], ";", "\n", 
+     RowBox[{"Vertices", "=", 
+      RowBox[{"Transpose", "[", "Vertices", "]"}]}], ";", "\n", 
+     RowBox[{"EigValue", "=", 
+      RowBox[{"ParallelTable", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"SeedRandom", "[", "i", "]"}], ";", "\n", 
+         RowBox[{"pol", "=", 
+          RowBox[{"Polygon", "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "1"}], "]"}], "]"}], ",", 
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "6"}], "]"}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "2"}], "]"}], "]"}], ",", 
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "7"}], "]"}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "3"}], "]"}], "]"}], ",", 
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "8"}], "]"}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "4"}], "]"}], "]"}], ",", 
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "9"}], "]"}], "]"}]}], "}"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "5"}], "]"}], "]"}], ",", 
+               RowBox[{"Vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "10"}], "]"}], "]"}]}], "}"}]}], "}"}], 
+           "]"}]}], ";", 
+         RowBox[{"Maxmesh", "=", 
+          RowBox[{
+           RowBox[{"Area", "[", "pol", "]"}], "*", "0.0015"}]}], ";", "\n", 
+         RowBox[{"eig", "=", 
+          RowBox[{
+           RowBox[{"NDEigenvalues", "[", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"-", 
+                RowBox[{"Laplacian", "[", 
+                 RowBox[{
+                  RowBox[{"u", "[", 
+                   RowBox[{"x", ",", "y"}], "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"x", ",", "y"}], "}"}]}], "]"}]}], ",", 
+               RowBox[{"DirichletCondition", "[", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"u", "[", 
+                   RowBox[{"x", ",", "y"}], "]"}], "==", "0"}], ",", "True"}],
+                 "]"}]}], "}"}], ",", 
+             RowBox[{"u", "[", 
+              RowBox[{"x", ",", "y"}], "]"}], ",", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "pol"}], ",", 
+             "100", ",", 
+             RowBox[{"Method", "->", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"\"\<PDEDiscretization\>\"", "->", 
+                 RowBox[{"{", 
+                  RowBox[{"\"\<FiniteElement\>\"", ",", 
+                   RowBox[{"\"\<MeshOptions\>\"", "->", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<MaxCellMeasure\>\"", "->", "Maxmesh"}], 
+                    "}"}]}]}], "}"}]}], ",", 
+                RowBox[{"\"\<Eigensystem\>\"", "->", 
+                 RowBox[{"{", 
+                  RowBox[{"\"\<Arnoldi\>\"", ",", 
+                   RowBox[{"\"\<MaxIterations\>\"", "->", "5000"}]}], 
+                  "}"}]}]}], "}"}]}]}], "]"}], "/", "300"}]}]}], ",", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", "100000"}], "}"}]}], "]"}]}], ";", "\n", 
+     RowBox[{"Export", "[", 
+      RowBox[{
+       RowBox[{
+       "\"\<2D_Matrix_Eig_5_polygon_Mathematica_no_reflection_eig_\>\"", "<>", 
+        RowBox[{"ToString", "[", "j", "]"}], "<>", "\"\<.h5\>\""}], ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\"\<Datasets\>\"", "->", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"\"\<EigValue\>\"", "->", "EigValue"}], ",", 
+            RowBox[{"\"\<Vertices\>\"", "->", "Vertices"}]}], "}"}]}], ",", 
+         RowBox[{"\"\<DataFormat\>\"", "->", 
+          RowBox[{"{", 
+           RowBox[{"Automatic", ",", "Automatic"}], "}"}]}]}], "}"}], ",", 
+       "\"\<Rules\>\""}], "]"}]}]}], "]"}], ";"}]}], "Input",ExpressionUUID->\
+"05411c7c-f8c8-46f7-bdde-a60ecd3f7425"]
+},
+WindowSize->{808, 911},
+WindowMargins->{{Automatic, 189}, {Automatic, 43}},
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (March 18, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"829920a9-5a2a-4eaf-a2e1-4116f2e45fdd"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 5208, 129, 358, "Input",ExpressionUUID->"05411c7c-f8c8-46f7-bdde-a60ecd3f7425"]
+}
+]
+*)
+
+(* End of internal cache information *)
+
