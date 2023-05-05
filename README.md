@@ -1,6 +1,6 @@
 
 # hearing-shape-of-a-drum
-This repository gives the core codes for the paper: https://arxiv.org/abs/2203.08073.
+This repository gives the core codes for the paper: https://doi.org/10.1103/PhysRevResearch.5.013110.
 
 ## Data generation
 Four files are involved in the data generation process. 
